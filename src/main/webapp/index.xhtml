@@ -1,10 +1,41 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8'?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-	<h:head>
-	  <title>Ghost Net Fishing</title>
-	</h:head>
-	<h:body>
-	  Hallo Welt!
-	</h:body>
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <title>Ghost Net Fishing</title>
+        <!-- Stylesheet hier verlinken falls vorhanden -->
+    </h:head>
+    
+    <h:body>
+        <!-- HEADER -->
+        <h:graphicImage value="#{resource['images/Sea-Shepherd_Logo.jpg']}" style="width: 150px;" />
+        <h1>Willkommen bei Ghost Net Fishing</h1>
+        
+        <!-- NAVIGATION -->
+        <p:menu>
+            <p:menuitem value="Startseite" action="#{bean.goToHome}"/>
+            <p:menuitem value="Geisternetz melden" action="#{bean.goToReport}"/>
+            <p:menuitem value="Geisternetz bergen" action="#{bean.goToSalvage}"/>
+        </p:menu>
+        
+        <!-- GEISTERNETZE ÜBERSICHT -->
+        <h3>Alle Geisternetze</h3>
+        <h:dataTable value="#{ghostNetBean.ghostNets}" var="net">
+            <h:column>
+                <f:facet name="header">Standort</f:facet>
+                #{net.location}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Status</f:facet>
+                #{net.status}
+            </h:column>
+            <h:column>
+                <f:facet name="header">Aktionen</f:facet>
+                <h:commandButton value="Details" action="#{ghostNetBean.viewDetails(net)}"/>
+            </h:column>
+        </h:dataTable>
+    </h:body>
 </html>
